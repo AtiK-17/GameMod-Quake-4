@@ -308,7 +308,7 @@ void rvWeaponLightningGun::Think ( void ) {
 	// Inflict damage on all targets being attacked
 	if ( !gameLocal.isClient && gameLocal.time >= nextAttackTime ) {
 		int    i;
-		float  power = 11.0f;																		//Change for exercise 1
+		float  power = 1.0f;
 		idVec3 dir;
 		
 		owner->inventory.UseAmmo( ammoType, ammoRequired );
@@ -318,7 +318,7 @@ void rvWeaponLightningGun::Think ( void ) {
 		
 		nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
 		Attack ( currentPath.target, dir, power );
-		for ( i = 0; i < chainLightning.Num() * 2; i ++, power *= 0.75f ) {							//Change for exercise 1
+		for ( i = 0; i < chainLightning.Num(); i ++, power *= 0.75f ) {
 			Attack ( chainLightning[i].target, chainLightning[i].normal, power );
 		}
 
@@ -694,10 +694,10 @@ void rvWeaponLightningGun::UpdateTubes( void ) {
 */
 
 CLASS_STATES_DECLARATION ( rvWeaponLightningGun )
-	STATE ( "Raise",						rvWeaponLightningGun::State_Lower ) 	 //Change for exercise 1
-	STATE ( "Lower",						rvWeaponLightningGun::State_Idle )		 //Change for exercise 1
-	STATE ( "Idle",							rvWeaponLightningGun::State_Fire)		 //Change for exercise 1
-	STATE ( "Fire",							rvWeaponLightningGun::State_Raise )		 //Change for exercise 1
+	STATE ( "Raise",						rvWeaponLightningGun::State_Raise )
+	STATE ( "Lower",						rvWeaponLightningGun::State_Lower )
+	STATE ( "Idle",							rvWeaponLightningGun::State_Idle)
+	STATE ( "Fire",							rvWeaponLightningGun::State_Fire )
 END_CLASS_STATES
 
 /*
