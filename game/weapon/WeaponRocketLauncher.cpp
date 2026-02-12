@@ -410,11 +410,11 @@ stateResult_t rvWeaponRocketLauncher::State_Idle( const stateParms_t& parms ) {
 	};	
 	switch ( parms.stage ) {
 		case STAGE_INIT:
-			if ( !AmmoAvailable ( ) ) {
-				SetStatus ( WP_OUTOFAMMO );
-			} else {
+			//if ( !AmmoAvailable ( ) ) {
+				//SetStatus ( WP_OUTOFAMMO );
+			//} else {
 				SetStatus ( WP_READY );
-			}
+			//}
 		
 			PlayCycle( ANIMCHANNEL_LEGS, "idle", parms.blendFrames );
 			return SRESULT_STAGE ( STAGE_WAIT );
@@ -451,7 +451,7 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 			return SRESULT_STAGE ( STAGE_WAIT );
 	
 		case STAGE_WAIT:			
-			if ( wsfl.attack && gameLocal.time >= nextAttackTime && ( gameLocal.isClient || AmmoInClip ( ) ) && !wsfl.lowerWeapon ) {
+			if ( wsfl.attack /* && gameLocal.time >= nextAttackTime */ && (gameLocal.isClient || AmmoInClip()) && !wsfl.lowerWeapon) {
 				SetState ( "Fire", 0 );
 				return SRESULT_DONE;
 			}
